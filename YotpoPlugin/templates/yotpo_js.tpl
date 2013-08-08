@@ -1,0 +1,1 @@
+<script src="https://www.yotpo.com/js/yQuery.js"></script>

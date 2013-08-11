@@ -27,7 +27,7 @@ class plg_YotpoPlugin extends SC_Plugin_Base {
         }
 
         $objQuery = & SC_Query_Ex::getSingletonInstance();
-        $objQuery->query("CREATE TABLE plg_yotpo_settings (id INT NOT NULL AUTO_INCREMENT, yotpo_key VARCHAR(255) NOT NULL, yotpo_value VARCHAR(255) NOT NULL, create_date TIMESTAMP, update_date TIMESTAMP, PRIMARY KEY (id))");
+        $objQuery->query("CREATE TABLE IF NOT EXISTS `plg_yotpo_settings` (id INT NOT NULL AUTO_INCREMENT, yotpo_key VARCHAR(255) NOT NULL, yotpo_value VARCHAR(255) NOT NULL, create_date TIMESTAMP, update_date TIMESTAMP, PRIMARY KEY (id))");
         copy(PLUGIN_UPLOAD_REALDIR . $arrPlugin['plugin_code'] . "/logo.png", PLUGIN_HTML_REALDIR . $arrPlugin['plugin_code'] . "/logo.png");
         mkdir(PLUGIN_HTML_REALDIR . $arrPlugin['plugin_code']. "/media");
         SC_Utils_Ex::sfCopyDir(PLUGIN_UPLOAD_REALDIR . $arrPlugin['plugin_code'] . "/media/", PLUGIN_HTML_REALDIR .  $arrPlugin['plugin_code']. "/media/");
@@ -100,9 +100,7 @@ class plg_YotpoPlugin extends SC_Plugin_Base {
                 } elseif (strpos($filename, 'products/detail.tpl') != false) {
                     //add widget and bottomline to product pages
                     $objTransform->select('#customervoice_area')->insertBefore(file_get_contents($template_dir . 'yotpo_widget.tpl'));
-                    if (YotpoSettings::getSetting('product_page_bottomline_enabled') == 1) {
-                        $objTransform->select('.point')->insertAfter(file_get_contents($template_dir . 'yotpo_bottomline.tpl'));    
-                    }
+                    $objTransform->select('.point')->insertAfter(file_get_contents($template_dir . 'yotpo_bottomline.tpl'));    
                     //remove existing reviews system if exists
                     if (YotpoSettings::getSetting('disable_default_reviews_system')) {
                         $objTransform->select('#customervoice_area')->removeElement();
@@ -130,8 +128,6 @@ class plg_YotpoPlugin extends SC_Plugin_Base {
      */
     function showWidget($objPage) {
 
-        // var_dump(get_class_methods($objPage));
-
         $product = $objPage->arrProduct;
         $productId = (int)$product['product_id'];
         $url_data = parse_url(HTTP_URL);
@@ -147,6 +143,7 @@ class plg_YotpoPlugin extends SC_Plugin_Base {
         $product_data['url'] = HTTP_URL."products/detail.php?product_id=".($productId);
         $product_data['image_url'] = IMAGE_SAVE_RSS_URL.($product['main_large_image']);
         $product_data['language_code'] = YotpoSettings::getSetting('language_code');
+        $product_data['display_bottomline'] = (YotpoSettings::getSetting('product_page_bottomline_enabled') == 1);
 
         $objPage->arrForm['yotpoProduct'] = $product_data;
 

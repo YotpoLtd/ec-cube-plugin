@@ -14,7 +14,7 @@ window.resizeTo(760,735);
 	
 		<div class="y-form-fields">
 		<fieldset id="y-fieldset">
-			<!--{if $arrForm.new_registration}--><div class="y-label">To customize the look and feel of the widget, and to edit your Mail After Purchase settings, just head to the 
+			<!--{if $arrForm.app_key && $arrForm.secret}--><div class="y-label">To customize the look and feel of the widget, and to edit your Mail After Purchase settings, just head to the 
 				<!--{if $arrForm.app_key && $arrForm.secret}-->
 					<a class="y-href" href="https://api.yotpo.com/users/b2blogin?app_key=<!--{$arrForm.app_key}-->&secret=<!--{$arrForm.secret}-->" target="_blank">Yotpo Dashboard.</a></div> 
 				<!--{else}-->

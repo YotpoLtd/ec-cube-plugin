@@ -4,6 +4,7 @@ require_once CLASS_EX_REALDIR . 'page_extends/admin/LC_Page_Admin_Ex.php';
 require_once(dirname( __FILE__ ) . '/YotpoSettings.php');
 require_once(dirname( __FILE__ ) . '/YotpoRegister.php');
 require_once(dirname( __FILE__ ) . '/YotpoMapProcessor.php');
+require_once(dirname(__FILE__) . '/../../../module/Smarty/libs/Smarty.class.php');
 
 class LC_Page_Plugin_YotpoPluginConfig extends LC_Page_Admin_Ex {
 
@@ -98,6 +99,11 @@ class LC_Page_Plugin_YotpoPluginConfig extends LC_Page_Admin_Ex {
                 if ($formData['app_key'] != NULL) {
                     $this->arrForm['already_logged_in'] = false;
                 }
+                
+                //clear cache
+                $objView = new SC_SiteView();
+                $objView->_smarty->clear_compiled_tpl();
+                
                 $this->arrForm = array_merge($this->arrForm, $formData);
                 $this->setConfigTemplate();
                 break;

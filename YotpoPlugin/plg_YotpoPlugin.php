@@ -100,7 +100,10 @@ class plg_YotpoPlugin extends SC_Plugin_Base {
                 } elseif (strpos($filename, 'products/detail.tpl') != false) {
                     //add widget and bottomline to product pages
                     $objTransform->select('#customervoice_area')->insertBefore(file_get_contents($template_dir . 'yotpo_widget.tpl'));
-                    $objTransform->select('.point')->insertAfter(file_get_contents($template_dir . 'yotpo_bottomline.tpl'));    
+                    
+                    if (YotpoSettings::getSetting('product_page_bottomline_enabled') == 1) {
+                        $objTransform->select('.point')->insertAfter(file_get_contents($template_dir . 'yotpo_bottomline.tpl'));    
+                    }
                     //remove existing reviews system if exists
                     if (YotpoSettings::getSetting('disable_default_reviews_system')) {
                         $objTransform->select('#customervoice_area')->removeElement();
@@ -140,10 +143,9 @@ class plg_YotpoPlugin extends SC_Plugin_Base {
         $product_data['description'] = strip_tags($product['main_comment']);
         $product_data['model'] = $product['product_code_min'];
         $product_data['breadcrumbs'] = '';
-        $product_data['url'] = HTTP_URL."products/detail.php?product_id=".($productId);
+        $product_data['url'] = str_replace(ROOT_URLPATH,P_DETAIL_URLPATH,HTTP_URL.$productId);
         $product_data['image_url'] = IMAGE_SAVE_RSS_URL.($product['main_large_image']);
         $product_data['language_code'] = YotpoSettings::getSetting('language_code');
-        $product_data['display_bottomline'] = (YotpoSettings::getSetting('product_page_bottomline_enabled') == 1);
 
         $objPage->arrForm['yotpoProduct'] = $product_data;
 

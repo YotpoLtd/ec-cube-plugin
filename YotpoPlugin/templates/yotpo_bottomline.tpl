@@ -1,4 +1,3 @@
-<!--{if ($arrForm.yotpoProduct.display_bottomline)}-->
 <div class="yotpo bottomLine" 
 data-appkey="<!--{$arrForm.yotpoProduct.app_key|h}-->"
 data-domain="<!--{$arrForm.yotpoProduct.domain|h}-->"
@@ -12,4 +11,3 @@ data-bread-crumbs="<!--{$arrForm.yotpoProduct.breadcrumbs|h}-->"
 data-lang="<!--{$arrForm.yotpoProduct.language_code}-->"
 >
 </div>
-<!--{/if}-->

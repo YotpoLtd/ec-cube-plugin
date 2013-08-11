@@ -4,7 +4,7 @@ class plugin_info{
     static $PLUGIN_CODE       = "YotpoPlugin";
     static $PLUGIN_NAME       = "YotpoPlugin";
     static $PLUGIN_VERSION    = "1.1";
-    static $COMPLIANT_VERSION = "2.12.3en-p1,2.12.3en-p2";
+    static $COMPLIANT_VERSION = "2.12.0,2.12.1,2.12.2,2.12.3,2.12.4,2.12.5";
     static $AUTHOR            = "Yotpo";
     static $DESCRIPTION       = "Yotpo Social Reviews plug-in";
     static $PLUGIN_SITE_URL   = "http://www.yotpo.com";

@@ -155,7 +155,7 @@ __EOS__;
             }
 
             $productData = array();
-            $productData['url'] = HTTP_URL."products/detail.php?product_id=".$rawOrder['product_id'];
+            $productData['url'] = str_replace(ROOT_URLPATH,P_DETAIL_URLPATH,HTTP_URL.$rawOrder['product_id']);
             $productData['name'] = $rawOrder['name'];
             $productData['image'] = IMAGE_SAVE_RSS_URL.$rawOrder['main_large_image'];
             $productData['description'] = $rawOrder['main_comment'];

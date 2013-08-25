@@ -164,7 +164,7 @@ class LC_Page_Plugin_YotpoPluginConfig extends LC_Page_Admin_Ex {
         
         $arrForm = $objFormParam->getHashArray();
         if ($arrForm['password'] !=  $arrForm['password_confirmation']) {
-            $objErr->arrErr['password'] = '* Password must be identical. <br />';
+            $objErr->arrErr['password'] = '* 同一のパスワードを使用しなければなりません。 <br />';
         }
 
         return $objErr->arrErr;

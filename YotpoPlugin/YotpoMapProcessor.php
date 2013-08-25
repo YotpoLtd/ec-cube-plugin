@@ -10,7 +10,7 @@ class YotpoMapProcessor {
         $app_key = YotpoSettings::getSetting('app_key');
         $secret = YotpoSettings::getSetting('secret');
         if ($app_key == NULL || $secret == NULL) {
-            throw new Exception('missing app_key or secret');
+            throw new Exception('不明のアプリケーションキーまたはシークレット');
         }
 
 
@@ -34,14 +34,14 @@ class YotpoMapProcessor {
 
                 $response = $yotpo_api->create_purchases($ordersRes);                       
                 if ($response['code'] != 200) {
-                    throw new Exception('failed to create purchases');
+                    throw new Exception('購入に失敗しました。');
                 }
 
                 $offset += $limit; 
             } while ($past_orders != NULL);
 
         } else {
-            throw new Exception('wrong app key and secret');
+            throw new Exception('アプリケーションキーとシークレットが間違っています。');
         }
     }
 
@@ -95,7 +95,7 @@ __EOS__;
         $today = time();
         $last = $today - (60*60*24*90); //90 days ago
         $date = date("Y-m-d", $last);
-        $where = "O.create_date > '".$date."' AND O.status IN (".ORDER_DELIV.",".ORDER_NEW.")"; //TODO decide the order status we want to take
+        $where = "O.create_date > '".$date."' AND O.status IN (".ORDER_DELIV.",".ORDER_NEW.")"; 
 
         $objQuery->setOrder('O.create_date DESC');
         $objQuery->setLimitOffset($limit, $page);

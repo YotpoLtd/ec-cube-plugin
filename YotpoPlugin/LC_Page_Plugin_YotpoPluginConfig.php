@@ -78,7 +78,9 @@ class LC_Page_Plugin_YotpoPluginConfig extends LC_Page_Admin_Ex {
                 }
                 $this->arrForm['app_key'] = YotpoSettings::getSetting('app_key');
                 $this->arrForm['secret'] = YotpoSettings::getSetting('secret');
-                $this->arrForm = array_merge($this->arrForm,$formData);
+                $this->arrForm['language_code'] = YotpoSettings::getSetting('language_code');
+                $this->arrForm['product_page_bottomline_enabled'] = YotpoSettings::getSetting('product_page_bottomline_enabled');
+                $this->arrForm['disable_default_reviews_system'] = YotpoSettings::getSetting('disable_default_reviews_system');
                 break;
             case 'yotpo_login':
                 $this->setConfigTemplate();

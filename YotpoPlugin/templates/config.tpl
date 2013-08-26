@@ -10,7 +10,7 @@ window.resizeTo(760,735);
 		<input type="hidden" name="mode" value="yotpo_settings">
 
 		<div class="y-page-header">
-			<i class="y-logo"></i><span>Settings</span></div>
+			<i class="y-logo"></i><span>設定</span></div>
 	
 		<div class="y-form-fields">
 		<fieldset id="y-fieldset">

@@ -27,7 +27,20 @@ class plg_YotpoPlugin extends SC_Plugin_Base {
         }
 
         $objQuery = & SC_Query_Ex::getSingletonInstance();
-        $objQuery->query("CREATE TABLE IF NOT EXISTS `plg_yotpo_settings` (id INT NOT NULL AUTO_INCREMENT, yotpo_key VARCHAR(255) NOT NULL, yotpo_value VARCHAR(255) NOT NULL, create_date TIMESTAMP, update_date TIMESTAMP, PRIMARY KEY (id))");
+        $query = "";
+        switch (DB_TYPE) {
+        case 'pgsql':
+            $query = "CREATE TABLE plg_yotpo_settings (id SERIAL PRIMARY KEY, yotpo_key VARCHAR(255) NOT NULL, yotpo_value VARCHAR(255) NOT NULL, create_date TIMESTAMP, update_date TIMESTAMP)";            
+            break;
+
+        case 'mysql':
+            $query = "CREATE TABLE `plg_yotpo_settings` (id INT NOT NULL AUTO_INCREMENT, yotpo_key VARCHAR(255) NOT NULL, yotpo_value VARCHAR(255) NOT NULL, create_date TIMESTAMP, update_date TIMESTAMP, PRIMARY KEY (id))";
+            break;
+
+        default:
+        }
+
+        $objQuery->query($query);
         copy(PLUGIN_UPLOAD_REALDIR . $arrPlugin['plugin_code'] . "/logo.png", PLUGIN_HTML_REALDIR . $arrPlugin['plugin_code'] . "/logo.png");
         mkdir(PLUGIN_HTML_REALDIR . $arrPlugin['plugin_code']. "/media");
         SC_Utils_Ex::sfCopyDir(PLUGIN_UPLOAD_REALDIR . $arrPlugin['plugin_code'] . "/media/", PLUGIN_HTML_REALDIR .  $arrPlugin['plugin_code']. "/media/");
